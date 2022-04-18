@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "MERN Stack",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "MERN",
+    "NodeJS",
+    "ReactJS",
+    "MongoDB",
+    "ExpressJS",
+    "Mongoose"
+  ],
+  "author": "Alberto Pimentel",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
