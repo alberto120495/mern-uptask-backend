@@ -61,7 +61,25 @@ const autenticar = async (req, res) => {
 };
 
 const confirmar = async (req, res) => {
-  console.log(req.params.token);
+  const { token } = req.params;
+  const confirmarUsuario = await Usuario.findOne({ token });
+  if (!confirmarUsuario) {
+    const error = new Error("Token no valido");
+    return res.status(403).json({
+      msg: error.message,
+    });
+  }
+
+  try {
+    confirmarUsuario.confirmado = true;
+    confirmarUsuario.token = "";
+    await confirmarUsuario.save();
+    res.json({
+      msg: "Usuario Confirmado Correctamente",
+    });
+  } catch (error) {
+    console.log(`(╯°□°）╯︵ ┻━┻ |>ERROR: ${error}`);
+  }
 };
 
 export { registrar, autenticar, confirmar };
