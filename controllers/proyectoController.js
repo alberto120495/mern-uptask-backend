@@ -190,8 +190,6 @@ const eliminarColaborador = async (req, res) => {
     });
   }
 
-  const { email } = req.body;
-
   //Eliminar del proyecto
 
   proyecto.colaboradores.pull(req.body.id);
