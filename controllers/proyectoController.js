@@ -34,7 +34,13 @@ const obtenerProyecto = async (req, res) => {
       msg: error.message,
     });
   }
-  if (proyecto.creador.toString() !== req.usuario._id.toString()) {
+
+  if (
+    proyecto.creador.toString() !== req.usuario._id.toString() &&
+    !proyecto.colaboradores.some(
+      (colaborador) => colaborador._id.toString() === req.usuario._id.toString()
+    )
+  ) {
     const error = new Error("No Autorizado");
     return res.status(401).json({
       msg: error.message,
