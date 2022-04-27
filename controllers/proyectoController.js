@@ -165,7 +165,33 @@ const agregarColaborador = async (req, res) => {
   });
 };
 
-const eliminarColaborador = async (req, res) => {};
+const eliminarColaborador = async (req, res) => {
+  const proyecto = await Proyecto.findById(req.params.id);
+  if (!proyecto) {
+    const error = new Error("Proyecto no encontrado");
+    return res.status(404).json({
+      msg: error.message,
+    });
+  }
+
+  //El usuario no es el que creo el proyecto
+  if (proyecto.creador.toString() !== req.usuario._id.toString()) {
+    const error = new Error("No Autorizado");
+    return res.status(401).json({
+      msg: error.message,
+    });
+  }
+
+  const { email } = req.body;
+
+  //Eliminar del proyecto
+
+  proyecto.colaboradores.pull(req.body.id);
+  await proyecto.save();
+  res.json({
+    msg: "Colaborador eliminado del proyecto",
+  });
+};
 
 export {
   obtenerProyectos,
