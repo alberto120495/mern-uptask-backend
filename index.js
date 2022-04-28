@@ -57,5 +57,7 @@ io.on("connection", (socket) => {
 
   socket.on("prueba", (nombre) => {
     console.log("prueba desde socket", nombre);
+
+    socket.emit("respuesta", { nombre: "Jesus" });
   });
 });
